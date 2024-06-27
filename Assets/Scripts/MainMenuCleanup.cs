@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class MainMenuCleanup : MonoBehaviour
 {
-    // Start is called before the first frame update
+    // 각 필드가 비어있지 않으면 gameObject Destroy함.
     void Awake()
     {
         if (NetworkManager.Singleton != null)

@@ -68,7 +68,8 @@ MonoBehaviour:
   m_text: "Lobby \n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 39b86bf8926da1b4f87df4c028ab5c2f, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 8776645436106298816, guid: 39b86bf8926da1b4f87df4c028ab5c2f,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -339,7 +340,8 @@ MonoBehaviour:
   m_text: 12/12
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 39b86bf8926da1b4f87df4c028ab5c2f, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 8776645436106298816, guid: 39b86bf8926da1b4f87df4c028ab5c2f,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
