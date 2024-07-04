@@ -101,16 +101,16 @@ public class LobbyBrowseUI : MonoBehaviour
 
     public void UpdateLobbyList(List<Lobby> lobbyList) // 로비 리스트 업데이트 함수.
     {
-        foreach (Transform child in lobbyContainer.transform) // Container에 맞게 child 배치.
+        foreach (Transform child in lobbyContainer.transform) // lobbyContainer의 모든 child 객체 순회.
         {
-            if (child == lobbyListTemplate) continue; // child가 lobbyListTemplate에 들어가는 프리팹이 맞으면 반복.
-            Destroy(child.gameObject); // 아니면 해당 오브젝트 파괴.
+            if (child == lobbyListTemplate) continue; // child 객체가 lobbyListTemplate이면 다음 child 객체로 넘어감.
+            Destroy(child.gameObject); // 현재 순회 중인 child 객체 파괴. 기존 로비 항목 제거에 이용.
         }
         foreach (Lobby lobby in lobbyList) // 로비 리스트의 로비 순회.
         {
-            GameObject _lobby = Instantiate(lobbyListTemplate, lobbyContainer.transform);
-            _lobby.SetActive(true);
-            _lobby.GetComponent<LobbyListItemUI>().SetLobby(lobby);
+            GameObject _lobby = Instantiate(lobbyListTemplate, lobbyContainer.transform); // lobbyListTemplate 복제하여 새로운 로비 항목 생성, 이는 lobbyContainer의 자식으로 설정됨.
+            _lobby.SetActive(true); // _lobby 오브젝트 활성화.
+            _lobby.GetComponent<LobbyListItemUI>().SetLobby(lobby); // _lobby의 LobbyListItemUI 컴포넌트를 가져와 SetLobby 메서드(로비 정보 설정에 사용) 호출.
         }
     }
 
