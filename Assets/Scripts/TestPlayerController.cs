@@ -4,12 +4,24 @@ using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Networking;
 using JetBrains.Annotations;
+using Unity.VisualScripting;
 
-public class TestPlayerController : NetworkBehaviour
+public class TestPlayerController : MonoBehaviour
 {
     private Animator _animator;
     private bool _hasAnimator;
     private bool isWalking;
+
+    private bool isNewWeapon;
+
+    //private Queue<GameObject> weaponsQueue = new Queue<GameObject>();
+    //private int maxWeapons = 3; // weapons 배열의 크기
+
+    bool _spaceDown;
+
+    GameObject nearObject;
+
+
 
     private void Awake()
 		{
@@ -22,6 +34,8 @@ public class TestPlayerController : NetworkBehaviour
         _hasAnimator = TryGetComponent(out _animator);
 
         Move();
+        GetInput();
+        //Debug.Log("무기 개수: " + weaponsQueue.Count);
     }
 
 
@@ -41,8 +55,13 @@ public class TestPlayerController : NetworkBehaviour
         else
         {
             isWalking = false;
-            SetPlayerWalking(isWalking);
+            Debug.Log("멈출게~");
         }
+    }
+
+    void GetInput()
+    {
+        _spaceDown = Input.GetKeyDown(KeyCode.Space);
     }
 
     public void SetPlayerWalking(bool isWalking)
@@ -53,4 +72,54 @@ public class TestPlayerController : NetworkBehaviour
 			_animator.SetTrigger("isWalk");
 		}
     }
+
+    void OnTriggerStay(Collider other) {
+        if(other.tag == "Weapon")
+        {
+            nearObject = other.gameObject;
+            Debug.Log("아이템에 닿았습니다.");
+
+            if(_spaceDown && nearObject != null)
+            {
+                //AcquireWeapon(nearObject);
+                Destroy(nearObject);
+                Debug.Log("아이템을 획득하였습니다.");
+                isNewWeapon = true;
+                SetGetNewWeapon(isNewWeapon);
+            }
+
+            else
+            {
+                isNewWeapon = false;
+                SetGetNewWeapon(isNewWeapon);
+            }
+        }
+    }
+
+    public void SetGetNewWeapon(bool isNewWeapon)
+    {
+        if(_hasAnimator && isNewWeapon)
+        {
+            _animator.SetTrigger("isGetNewWeapon");
+            Debug.Log("Knife는 놓을게~");
+        }
+    }
+
+
+    void OnTriggerExit(Collider other) {
+        if(other.tag == "Weapon")
+        {
+            nearObject = null;
+        }
+    }
+
+    /*void AcquireWeapon(GameObject weapon)
+    {
+        weaponsQueue.Enqueue(weapon);
+
+        if(weaponsQueue.Count > maxWeapons)
+        {
+            GameObject oldestWeapon = weaponsQueue.Dequeue();
+        }
+    }*/
 }
